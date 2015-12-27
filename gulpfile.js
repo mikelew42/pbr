@@ -4,7 +4,9 @@ var gulp = require('gulp'),
 	express = require('express'),
 	port = parseInt(process.argv[2]) || 80,
 	less = require('gulp-less'),
-	path = require('path');  // not sure why this doesn't work
+	path = require('path'),
+	fs = require('fs'),
+	glob = require('glob');  // not sure why this doesn't work
 
 gulp.task('server', function(next){
 	var server = express().use(express.static( __dirname + '/public' )).listen(port, next);
@@ -13,15 +15,15 @@ gulp.task('server', function(next){
 	open("http://localhost" + portStr, "chrome");
 });
 
-gulp.task('less', function () {
-  return gulp.src('./less/**/*.less')
-    .pipe(less({
-      paths: [ path.join(__dirname, 'less', 'includes') ]
-    }))
-    .pipe(gulp.dest('./public/css'));
-});
+// gulp.task('less', function () {
+//   return gulp.src('./less/**/*.less')
+//     .pipe(less({
+//       paths: [ path.join(__dirname, 'less', 'includes') ]
+//     }))
+//     .pipe(gulp.dest('./public/css'));
+// });
 
-gulp.task('default', ['server', 'less'], function(){
+gulp.task('default', ['server'], function(){
 	var refresh = livereload();
 	console.log('watching');
 
@@ -29,12 +31,12 @@ gulp.task('default', ['server', 'less'], function(){
 		refresh.changed(file.path);
 	});
 
-	gulp.watch('public/less/**/*.less').on('change', function(file){
-		console.log('less changed', file);
+	gulp.watch('public/**/*.less').on('change', function(file){
+		console.log('less changedd', file);
 		return gulp.src(file.path)
 			.pipe(less({
-				paths: ['public/less']
+				paths: [file.path]
 			}))
-			.pipe(gulp.dest('./public/css'));
+			.pipe(gulp.dest(path.dirname(file.path)));
 	});
 });
