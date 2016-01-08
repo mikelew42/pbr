@@ -1,8 +1,4 @@
-.parent {
-  padding: 10px;
-}
-.parent .child {
-  font-weight: bold;
-  font-size: 55px;
-  color: green;
+.test1 {
+	background: orange;
+	height: 20px;
 }
