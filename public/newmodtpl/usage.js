@@ -1,11 +1,8 @@
 ;(function(){
-var is = utils.is, 
-	copy = utils.copy,
-	mod = utils.mod,
-	sfn = utils.sfn;
+	
 
-GlobalItem = mod.clone({});
+$(function(){
 
-var localItem = mod.clone({});
+});
 
 })();
