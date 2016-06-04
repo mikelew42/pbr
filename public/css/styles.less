@@ -1,7 +1,83 @@
-.str {
-	padding: 10px;
-	border: 2px solid black;
-	.label {
-		font-weight: bold;
+.padding() {
+	padding: 1em;
+}
+
+.item {
+	display: flex;
+	.icon {
+		display: block;
+	}
+	.value {
+		margin-left: auto;
+	}
+	&.expandable {
+		display: block;
+		> .preview {
+			cursor: pointer;
+			display: flex;
+		}
+		&.start-collapsed > .contents {
+			display: none;
+		}
+	}
+}
+
+.icon {
+
+}
+
+.outlines {
+	.padding() {
+		padding: 1em;
+	}
+	.item {
+		margin-bottom: 1em;
+		&, * {
+			border: 1px solid black;
+		}
+		/* let it flood for now.  direct desc doesn't work with item > preview wrapper */
+		.icon, .text, .value {
+			.padding;
+		}
+	}
+}
+
+.light {
+	.padding() {
+		padding: 6px 10px;
+	}
+	font-family: verdana;
+	font-size: 13px;
+	.item {
+		margin-bottom: 5px;
+		background: #fafafa;
+		.icon {
+			.padding;
+			padding-top: 8px;
+			padding-bottom: 4px;
+			background: #f0f0f0;
+		}
+		.value {
+			.padding;
+			background: #f0f0f0;
+			&.number {
+				color: green;
+			}
+			&.string {
+				color: blue;
+			}
+			&.boolean {
+				color: red;
+			}
+		}
+		.text {
+			.padding;
+		}
+		&.fn-item {
+			.fn-arg {
+				font-style: italic;
+				color: #666;
+			}
+		}
 	}
 }

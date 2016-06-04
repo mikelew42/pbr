@@ -1,7 +1,66 @@
-.str {
-  padding: 10px;
-  border: 2px solid black;
+.item {
+  display: flex;
 }
-.str .label {
-  font-weight: bold;
+.item .icon {
+  display: block;
+}
+.item .value {
+  margin-left: auto;
+}
+.item.expandable {
+  display: block;
+}
+.item.expandable > .preview {
+  cursor: pointer;
+  display: flex;
+}
+.item.expandable.start-collapsed > .contents {
+  display: none;
+}
+.outlines .item {
+  margin-bottom: 1em;
+  /* let it flood for now.  direct desc doesn't work with item > preview wrapper */
+}
+.outlines .item,
+.outlines .item * {
+  border: 1px solid black;
+}
+.outlines .item .icon,
+.outlines .item .text,
+.outlines .item .value {
+  padding: 1em;
+}
+.light {
+  font-family: verdana;
+  font-size: 13px;
+}
+.light .item {
+  margin-bottom: 5px;
+  background: #fafafa;
+}
+.light .item .icon {
+  padding: 6px 10px;
+  padding-top: 8px;
+  padding-bottom: 4px;
+  background: #f0f0f0;
+}
+.light .item .value {
+  padding: 6px 10px;
+  background: #f0f0f0;
+}
+.light .item .value.number {
+  color: green;
+}
+.light .item .value.string {
+  color: blue;
+}
+.light .item .value.boolean {
+  color: red;
+}
+.light .item .text {
+  padding: 6px 10px;
+}
+.light .item.fn-item .fn-arg {
+  font-style: italic;
+  color: #666;
 }
