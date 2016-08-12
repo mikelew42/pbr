@@ -4,9 +4,10 @@ var is = utils.is,
 	mod = utils.mod,
 	sfn = utils.sfn;
 
-
+console.log('start log.js');
 // there is a View module in the view folder... trying something else here
 View2 = mod2.clone({
+	type: "View2",
 	init: function(){
 		this.prop('$el');
 		this.props.$el.getter = function(){
@@ -28,6 +29,7 @@ View2 = mod2.clone({
 logger = sfn(function(){
 	this.log.apply(this, arguments);
 }, {
+	type: "logger",
 	props: {
 		activeLogger: 'dnc'
 	},
@@ -94,6 +96,7 @@ mod2.copyTo(logger);
 
 
 LogView = View2.clone({
+	type: "LogView",
 	render: function(){
 		this.$el = $("<div>").addClass('logger').html('logger');
 		this.renderLogs();
@@ -111,6 +114,7 @@ LogView = View2.clone({
 
 
 LogValues = mod2.clone({
+	type: "LogValues",
 	values: [],
 	addValue: function(value){
 		if (is.str(value))
@@ -133,15 +137,16 @@ LogValues = mod2.clone({
 	},
 	view: function(){
 		return LogValuesView.clone({
-			logValues: this,
-			props: {
-				logValues: 'dnc'
-			}
+			logValues: this
 		});
 	}
 });
 
 LogValuesView = View2.clone({
+	type: "LogValuesView",
+	props: {
+		logValues: 'dnc'
+	},
 	render: function(){
 		var self = this;
 		this.$el = $("<div>").addClass('log-values');
@@ -157,6 +162,10 @@ LogValuesView = View2.clone({
 
 
 LogValueView = View2.clone({
+	props: {
+		logValue: "dnc"
+	},
+	type: "LogValueView",
 	render: function(){
 		return $("<div>").html(this.logValue.value);
 	}
@@ -165,25 +174,35 @@ LogValueView = View2.clone({
 LogValueViewSfn = sfn();
 LogValueViewSfn.main = LogValueViewSfn.clone;
 LogValueView.copyTo(LogValueViewSfn);
+LogValueViewSfn.type = "LogValueViewSfn";
 
 
 LogValue = mod2.clone({
+	type: "LogValue",
 	setValue: function(value){
 		this.value = value;
 	},
-	view: LogValueViewSfn.clone()
+	// view: LogValueViewSfn.clone()
+	view: function(){
+		return LogValueView.clone({
+			logValue: this
+		});
+	}
 });
 
-LogValue.view.logValue = LogValue;
+// LogValue.view.logValue = LogValue;
 
-LogStr = LogValue.clone();
-LogNum = LogValue.clone();
-LogBool = LogValue.clone();
+LogStr = LogValue.clone({
+	type: "LogStr"
+});
+LogNum = LogValue.clone({ type: "LogNum" });
+LogBool = LogValue.clone({ type: "LogBool" });
 
+console.log('yo');
 
-
-log = logger.clone({});
+log = logger.clone({ type: "rootLogger" });
 log.activeLogger = log;
 
+console.log('end of log.js');
 
 })();

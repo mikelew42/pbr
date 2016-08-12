@@ -11,6 +11,7 @@ $(function(){
 	log('you', 'are', 'awesome');
 	console.dir(log);
 	log.view().appendTo($('body'));
+	console.log('huh?');
 });
 
 })();
